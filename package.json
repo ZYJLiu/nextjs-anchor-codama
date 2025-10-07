@@ -1,0 +1,19 @@
+{
+  "license": "ISC",
+  "scripts": {
+    "start": "(pnpm airdrop || true) && pnpm build:program && pnpm generate && pnpm test && pnpm deploy:program && pnpm dev",
+    "airdrop": "node scripts/check-and-airdrop.js",
+    "build:program": "anchor build && anchor keys sync",
+    "generate": "codama run --all",
+    "test": "cargo test",
+    "deploy:program": "anchor deploy",
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build"
+  },
+  "dependencies": {
+    "@codama/nodes-from-anchor": "^1.2.9",
+    "@codama/renderers-js": "^1.4.2",
+    "@codama/renderers-rust": "^1.2.7",
+    "codama": "^1.3.7"
+  }
+}

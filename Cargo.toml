@@ -1,0 +1,26 @@
+[package]
+name = "anchor-workspace"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[workspace]
+members = ["programs/*", "clients/rust"]
+resolver = "2"
+
+
+[dev-dependencies]
+litesvm = "0.8.1"
+mollusk-svm = "0.6.3"
+solana-sdk = "3.0.0"
+solana-system-interface = "2.0.0"
+program-client = { path = "clients/rust" }
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1

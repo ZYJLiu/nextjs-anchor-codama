@@ -1,0 +1,16 @@
+{
+  "name": "program-client",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/generated/index.ts",
+  "types": "./src/generated/index.ts",
+  "exports": {
+    ".": "./src/generated/index.ts",
+    "./generated": "./src/generated/index.ts",
+    "./generated/instructions": "./src/generated/instructions/index.ts",
+    "./generated/*": "./src/generated/*.ts"
+  },
+  "dependencies": {
+    "@solana/kit": "3.0.3"
+  }
+}
