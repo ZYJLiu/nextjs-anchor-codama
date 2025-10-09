@@ -11,7 +11,7 @@ resolver = "2"
 
 [dev-dependencies]
 litesvm = "0.8.1"
-mollusk-svm = "0.6.3"
+mollusk-svm = { git = "https://github.com/anza-xyz/mollusk", package = "mollusk-svm" }
 solana-sdk = "3.0.0"
 solana-system-interface = "2.0.0"
 program-client = { path = "clients/rust" }
