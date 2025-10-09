@@ -8,4 +8,4 @@
 use solana_pubkey::{pubkey, Pubkey};
 
 /// `anchor_program` program ID.
-pub const ANCHOR_PROGRAM_ID: Pubkey = pubkey!("3bgYVS545pqFRKpY4UYgmSxc997QWfivVp3j2QVqb1t8");
+pub const ANCHOR_PROGRAM_ID: Pubkey = pubkey!("SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR");

@@ -3,7 +3,8 @@
   "scripts": {
     "start": "(pnpm airdrop || true) && pnpm build:program && pnpm test && pnpm deploy:program && pnpm dev",
     "airdrop": "node scripts/check-and-airdrop.js",
-    "build:program": "anchor build && anchor keys sync && pnpm generate",
+    "keypair": "node scripts/generate-keypair.js",
+    "build:program": "pnpm keypair && anchor keys sync && anchor build && pnpm generate",
     "generate": "codama run --all",
     "test": "cargo test",
     "deploy:program": "anchor deploy",

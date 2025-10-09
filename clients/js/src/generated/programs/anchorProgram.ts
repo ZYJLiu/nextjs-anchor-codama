@@ -16,7 +16,7 @@ import {
 import { type ParsedInitializeInstruction } from '../instructions';
 
 export const ANCHOR_PROGRAM_PROGRAM_ADDRESS =
-  '3bgYVS545pqFRKpY4UYgmSxc997QWfivVp3j2QVqb1t8' as Address<'3bgYVS545pqFRKpY4UYgmSxc997QWfivVp3j2QVqb1t8'>;
+  'SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR' as Address<'SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR'>;
 
 export enum AnchorProgramInstruction {
   Initialize,
@@ -43,7 +43,7 @@ export function identifyAnchorProgramInstruction(
 }
 
 export type ParsedAnchorProgramInstruction<
-  TProgram extends string = '3bgYVS545pqFRKpY4UYgmSxc997QWfivVp3j2QVqb1t8',
+  TProgram extends string = 'SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR',
 > = {
   instructionType: AnchorProgramInstruction.Initialize;
 } & ParsedInitializeInstruction<TProgram>;
