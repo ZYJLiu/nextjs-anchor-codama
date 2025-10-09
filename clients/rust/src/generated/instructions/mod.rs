@@ -5,6 +5,8 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod r#initialize;
+pub(crate) mod r#deposit;
+pub(crate) mod r#withdraw;
 
-pub use self::r#initialize::*;
+pub use self::r#deposit::*;
+pub use self::r#withdraw::*;

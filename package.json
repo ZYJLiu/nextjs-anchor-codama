@@ -6,7 +6,7 @@
     "keypair": "node scripts/generate-keypair.js",
     "build:program": "pnpm keypair && anchor keys sync && anchor build && pnpm generate",
     "generate": "codama run --all",
-    "test": "cargo test",
+    "test": "pnpm build:program && cargo test",
     "deploy:program": "anchor deploy",
     "dev": "pnpm --filter frontend dev",
     "build": "pnpm --filter frontend build"

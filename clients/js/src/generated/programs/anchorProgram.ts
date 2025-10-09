@@ -13,13 +13,41 @@ import {
   type Address,
   type ReadonlyUint8Array,
 } from '@solana/kit';
-import { type ParsedInitializeInstruction } from '../instructions';
+import {
+  type ParsedDepositInstruction,
+  type ParsedWithdrawInstruction,
+} from '../instructions';
 
 export const ANCHOR_PROGRAM_PROGRAM_ADDRESS =
   'SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR' as Address<'SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR'>;
 
+export enum AnchorProgramAccount {
+  UserDeposit,
+}
+
+export function identifyAnchorProgramAccount(
+  account: { data: ReadonlyUint8Array } | ReadonlyUint8Array
+): AnchorProgramAccount {
+  const data = 'data' in account ? account.data : account;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([69, 238, 23, 217, 255, 137, 185, 35])
+      ),
+      0
+    )
+  ) {
+    return AnchorProgramAccount.UserDeposit;
+  }
+  throw new Error(
+    'The provided account could not be identified as a anchorProgram account.'
+  );
+}
+
 export enum AnchorProgramInstruction {
-  Initialize,
+  Deposit,
+  Withdraw,
 }
 
 export function identifyAnchorProgramInstruction(
@@ -30,12 +58,23 @@ export function identifyAnchorProgramInstruction(
     containsBytes(
       data,
       fixEncoderSize(getBytesEncoder(), 8).encode(
-        new Uint8Array([175, 175, 109, 31, 13, 152, 155, 237])
+        new Uint8Array([242, 35, 198, 137, 82, 225, 242, 182])
       ),
       0
     )
   ) {
-    return AnchorProgramInstruction.Initialize;
+    return AnchorProgramInstruction.Deposit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([183, 18, 70, 156, 148, 109, 161, 34])
+      ),
+      0
+    )
+  ) {
+    return AnchorProgramInstruction.Withdraw;
   }
   throw new Error(
     'The provided instruction could not be identified as a anchorProgram instruction.'
@@ -44,6 +83,10 @@ export function identifyAnchorProgramInstruction(
 
 export type ParsedAnchorProgramInstruction<
   TProgram extends string = 'SApGwJ3zpvucuQbV1kXdrbeuiBunZ6q48o6xucrSGYR',
-> = {
-  instructionType: AnchorProgramInstruction.Initialize;
-} & ParsedInitializeInstruction<TProgram>;
+> =
+  | ({
+      instructionType: AnchorProgramInstruction.Deposit;
+    } & ParsedDepositInstruction<TProgram>)
+  | ({
+      instructionType: AnchorProgramInstruction.Withdraw;
+    } & ParsedWithdrawInstruction<TProgram>);

@@ -4,3 +4,7 @@
 //!
 //! <https://github.com/codama-idl/codama>
 //!
+
+pub(crate) mod anchor_program;
+
+pub use self::anchor_program::AnchorProgramError;

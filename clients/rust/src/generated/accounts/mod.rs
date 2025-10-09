@@ -5,10 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub mod accounts;
-pub mod errors;
-pub mod instructions;
-pub mod programs;
-pub mod shared;
+pub(crate) mod r#user_deposit;
 
-pub(crate) use programs::*;
+pub use self::r#user_deposit::*;
