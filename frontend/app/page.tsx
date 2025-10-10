@@ -1,16 +1,16 @@
 "use client";
 
 import { WalletConnectButton } from "@/components/wallet-connect-button";
-import { InitializeCard } from "@/components/initialize-card";
+import { VaultCard } from "@/components/deposit-withdraw";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-card rounded-lg border shadow-lg p-6 space-y-6">
+      <div className="w-full max-w-md space-y-3">
         <div className="flex justify-center">
           <WalletConnectButton />
         </div>
-        <InitializeCard />
+        <VaultCard />
       </div>
     </div>
   );

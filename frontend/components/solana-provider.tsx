@@ -8,18 +8,28 @@ import {
 } from "@wallet-standard/react";
 import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/kit";
 import { StandardConnect } from "@wallet-standard/core";
+import { createRecentSignatureConfirmationPromiseFactory } from "@solana/transaction-confirmation";
 
 // Create RPC connection
 const RPC_ENDPOINT = "https://api.devnet.solana.com";
 const WS_ENDPOINT = "wss://api.devnet.solana.com";
 const chain = "solana:devnet";
 const rpc = createSolanaRpc(RPC_ENDPOINT);
-const ws = createSolanaRpcSubscriptions(WS_ENDPOINT);
+const rpcSubscriptions = createSolanaRpcSubscriptions(WS_ENDPOINT);
+
+const getRecentSignatureConfirmationPromise =
+  createRecentSignatureConfirmationPromiseFactory({
+    rpc: rpc,
+    rpcSubscriptions: rpcSubscriptions,
+  });
 
 interface SolanaContextState {
   // RPC
   rpc: ReturnType<typeof createSolanaRpc>;
-  ws: ReturnType<typeof createSolanaRpcSubscriptions>;
+  rpcSubscriptions: ReturnType<typeof createSolanaRpcSubscriptions>;
+  getRecentSignatureConfirmationPromise: ReturnType<
+    typeof createRecentSignatureConfirmationPromiseFactory
+  >;
   chain: typeof chain;
 
   // Wallet State
@@ -90,8 +100,11 @@ export function SolanaProvider({ children }: { children: React.ReactNode }) {
     () => ({
       // Static RPC values
       rpc,
-      ws,
+      rpcSubscriptions,
       chain,
+
+      // Transaction confirmation
+      getRecentSignatureConfirmationPromise,
 
       // Dynamic wallet values
       wallets,

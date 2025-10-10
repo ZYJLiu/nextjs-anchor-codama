@@ -32,7 +32,7 @@ pub mod anchor_program {
     }
 
     pub fn withdraw(ctx: Context<VaultAction>, amount: u64) -> Result<()> {
-        require_gt!(
+        require_gte!(
             ctx.accounts.user_deposit.balance,
             amount,
             VaultError::InvalidAmount
