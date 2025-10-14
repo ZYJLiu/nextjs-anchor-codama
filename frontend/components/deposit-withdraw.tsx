@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,7 +43,7 @@ function ConnectedVaultCard({ account }: { account: UiWalletAccount }) {
   const [txSignature, setTxSignature] = useState("");
   const [error, setError] = useState("");
 
-  async function fetchBalances() {
+  const fetchBalances = useCallback(async () => {
     if (!signer) return;
 
     // Fetch user deposit account balance
@@ -95,11 +95,11 @@ function ConnectedVaultCard({ account }: { account: UiWalletAccount }) {
       console.log("Vault account not found:", err);
       setVaultBalance(0);
     }
-  }
+  }, [signer, rpc]);
 
   useEffect(() => {
     fetchBalances();
-  }, [signer]);
+  }, [signer, fetchBalances]);
 
   async function deposit() {
     if (!amount || !signer) return;
@@ -146,8 +146,8 @@ function ConnectedVaultCard({ account }: { account: UiWalletAccount }) {
         // Refresh balances after confirmation
         await fetchBalances();
         setAmount("0");
-      } catch (confirmError: any) {
-        console.error(`Transaction ${signatureStr} failed`, confirmError.cause);
+      } catch (confirmError: unknown) {
+        console.error(`Transaction ${signatureStr} failed`, confirmError instanceof Error ? confirmError.cause : confirmError);
         throw confirmError;
       }
     } catch (err) {
@@ -202,8 +202,8 @@ function ConnectedVaultCard({ account }: { account: UiWalletAccount }) {
 
         // Refresh balances after confirmation
         await fetchBalances();
-      } catch (confirmError: any) {
-        console.error(`Transaction ${signatureStr} failed`, confirmError.cause);
+      } catch (confirmError: unknown) {
+        console.error(`Transaction ${signatureStr} failed`, confirmError instanceof Error ? confirmError.cause : confirmError);
         throw confirmError;
       }
     } catch (err) {
