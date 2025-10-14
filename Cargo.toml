@@ -10,7 +10,7 @@ resolver = "2"
 
 
 [dev-dependencies]
-litesvm = "0.8.1"
+litesvm = { git = "https://github.com/LiteSVM/litesvm", package = "litesvm" }
 mollusk-svm = { git = "https://github.com/anza-xyz/mollusk", package = "mollusk-svm" }
 solana-sdk = "3.0.0"
 solana-system-interface = "2.0.0"
