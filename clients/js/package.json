@@ -10,7 +10,7 @@
     "./generated/instructions": "./src/generated/instructions/index.ts",
     "./generated/*": "./src/generated/*.ts"
   },
-  "dependencies": {
-    "@solana/kit": "3.0.3"
+  "peerDependencies": {
+    "@solana/kit": "^3.0.0"
   }
 }
